@@ -4,12 +4,15 @@ const ffmpeg = require('fluent-ffmpeg')
 const expressFileUpload = require('express-fileupload')
 const app = express()
 
+console.log(ffmpeg)
+
 // using bodyparser: x-www-form-urlencoded, json
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
 // main route
 app.get('/', (req,res)=>{
+  console.log(" ~ accediendo a /")
   res.sendFile(__dirname + '/index.html')
 })
 
