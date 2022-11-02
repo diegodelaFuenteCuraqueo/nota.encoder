@@ -14,7 +14,7 @@ app.use(bodyParser.json())
 // main route
 app.get('/', (req,res)=>{
   console.log(" ~ accediendo a /")
-  res.sendFile(__dirname + '/index.html')
+  return res.sendFile(__dirname + '/index.html')
 })
 
 app.use(
@@ -32,10 +32,10 @@ app.post('/convert', (req,res)=>{
   let file = req.files.file
   let fileName = `output.${to}`
   // console.log(to)
-  // console.log(file)
+  console.log('file', file)
 
   file.mv("tmp/" + file.name, (err) => {
-    if (err) return res.sendStatus(500).send(err)
+    if (err) return res.sendStatus(500).send("ERROR", err)
     console.log("archivo subido correctamente")
   })
 
@@ -44,7 +44,7 @@ app.post('/convert', (req,res)=>{
     .withOutputFormat(to)
     .on('end', (stdout,stderr) => {
       console.log(" Finalizado")
-      res.download( __dirname + fileName, (err) => {
+      return res.download( __dirname + fileName, (err) => {
         if (err) throw err;
         fs.unlink( __dirname + fileName, (err) => {
           if (err) throw err;
