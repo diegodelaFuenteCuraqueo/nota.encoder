@@ -27,12 +27,9 @@ app.use(
 // index.html convert form
 app.post('/convert', (req,res)=>{
   console.log(" ~ accediendo a /convert")
-  // console.log(req)
   let to = req.body.to
   let file = req.files.file
   let fileName = `output.${to}`
-  // console.log(to)
-  // console.log(file)
 
   file.mv("tmp/" + file.name, (err) => {
     if (err) return res.sendStatus(500).send(err)
@@ -48,7 +45,7 @@ app.post('/convert', (req,res)=>{
         if (err) throw err;
         fs.unlink( __dirname + fileName, (err) => {
           if (err) throw err;
-          console.log("File deleted");
+          console.log("archivo borrado");
         })
       })
       fs.unlink("tmp/"+file.name, (err)=>{
@@ -60,14 +57,15 @@ app.post('/convert', (req,res)=>{
       console.log("error:",err)
       fs.unlink( __dirname + fileName, (err) => {
         if (err) throw err;
-        console.log("File deleted");
+        console.log("archivo borrado");
       })
     })
     .saveToFile(__dirname + fileName)
 
 })
 
-app.listen(4000, () => {
-  console.log("listening to port 4000")
+const port = process.env.PORT || 9090
+app.listen(port, () => {
+  console.log("listening to port " + port)
 })
 
