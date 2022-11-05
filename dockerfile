@@ -1,16 +1,15 @@
-FROM node:17
+FROM node:12-alpine
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y nodejs \
-    npm
-
-RUN apt install ffmpeg -y
+RUN apk update && apk upgrade
+RUN apk add nodejs npm
+RUN apk add ffmpeg
 RUN npm install -g nodemon
 RUN npm install
+RUN npm prune --production
 
 COPY . .
 
