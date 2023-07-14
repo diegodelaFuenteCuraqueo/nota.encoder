@@ -1,13 +1,12 @@
-const encodeVideo = require('../encoder/encodeVideo.js')
+const encodeAudio = require('../jobs/encodeAudio.js')
 const checkTempFolder = require('../Utils/checkTempFolder.js')
-const fs = require('fs')
 
-async function convert(req, res) {
+async function ConvertAudio(req, res) {
+  // TODO: replace this code with encodeAudio function
   console.log(" ~ accediendo a /convert")
   let to = req.body.to
-  let type = req.body.type || ''
   let file = req.files.file
-  let convertedFile = `tmp/${file.name.split('.')[0]}(output).${to}`
+  let convertedFile = `tmp/${file.name.split('.')[0]}(output).aac`
   let fileCopy  = `tmp/${file.name}`
 
   console.log(" > Converting file: ")
@@ -19,7 +18,7 @@ async function convert(req, res) {
     console.log(" > File uploaded successfully")
   })
 
-  await encodeVideo(fileCopy, convertedFile, to, res)
+  await encodeAudio(fileCopy, convertedFile, res)
 }
 
-module.exports = convert
+module.exports = ConvertAudio

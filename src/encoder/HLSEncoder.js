@@ -1,6 +1,6 @@
 const BaseEncoder = require('./AudioEncoder')
 
-export class HLSEncoder  extends BaseEncoder {
+class HLSEncoder  extends BaseEncoder {
 
   constructor(inputPath) {
     super(inputPath)
@@ -39,3 +39,5 @@ export class HLSEncoder  extends BaseEncoder {
       .run()
   }
 }
+
+module.exports = HLSEncoder

@@ -1,24 +1,27 @@
 const ffmpeg = require('fluent-ffmpeg')
 const deleteTempFiles = require('../Utils/deleteTempFiles.js')
-const VideoEncoder = require('./VideoEncoder.js')
+const HLSEncoder = require('../encoder/HLSEncoder.js')
 
-function encodeVideo(fileCopy, convertedFile, res) {
-
-  const videoEncoder = new VideoEncoder(fileCopy)
+function encodeHLS(fileCopy, convertedFile, res) {
+  // TODO: replace this code with encodeHLS settings accordingly
+  const HLSEncoder = new HLSEncoder(fileCopy)
 
   videoEncoder
     .setOutputPath(convertedFile)
     .setVideoCodec('libx264')
-    //.setAudioCodec('aac')
+    .setAudioCodec('aac')
     //.setVideoBitrate('1000k')
     //.setFrameRate(30)
     //.setResolution(640, 480)
+    .setPlaylistName('myplaylist.m3u8')
+    .setVideoCodec('libx264')
+    .setAudioCodec('aac')
     .convert((err) => {
       if (err) {
-        console.error('Error converting video:', err)
+        console.error(' > Error converting HLS:', err)
         deleteTempFiles([fileCopy, convertedFile])
       } else {
-        console.log('Video conversion completed successfully.')
+        console.log(' > HLS conversion completed successfully.')
         return res.download(convertedFile, (err) => {
           if (err) throw err
           deleteTempFiles([fileCopy, convertedFile])
@@ -28,4 +31,4 @@ function encodeVideo(fileCopy, convertedFile, res) {
     })
 }
 
-module.exports = encodeVideo
+module.exports = encodeHLS

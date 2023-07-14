@@ -1,9 +1,12 @@
-const convert = require('./src/routes/convert.js')
-const main = require('./src/routes/main.js')
 const express = require('express')
 const bodyParser = require('body-parser')
 const expressFileUpload = require('express-fileupload')
 const app = express()
+
+const Main = require('./src/routes/Main.js')
+const convertVideo = require('./src/routes/ConvertVideo.js')
+const convertAudio = require('./src/routes/ConvertAudio.js')
+const convertHLS = require('./src/routes/ConvertHLS.js')
 
 //  CONFIGURATIONS - - -
 app.use(bodyParser.urlencoded({extended:false}))
@@ -17,10 +20,13 @@ app.use(
 )
 
 // GET METHODS - - -
-app.get('/', main) // main route
+app.get('/', Main) // main route
 
 // POST METHODS - - -
-app.post('/convert', convert) //  index.html convert form
+app.post('/convertVideo', convertVideo)
+app.post('/convertAudio', convertAudio)
+app.post('/convertHLS', convertHLS)
+
 
 // LISTENING - - -
 const port = process.env.PORT || 9090
