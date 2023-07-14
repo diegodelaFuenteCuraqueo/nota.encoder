@@ -2,7 +2,7 @@ const encodeVideo = require('../encoder/encodeVideo.js')
 const checkTempFolder = require('../Utils/checkTempFolder.js')
 const fs = require('fs')
 
-async function convert(req,res) {
+async function convert(req, res) {
   console.log(" ~ accediendo a /convert")
   let to = req.body.to
   let type = req.body.type || ''
