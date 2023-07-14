@@ -8,6 +8,7 @@ const app = express()
 //  CONFIGURATIONS - - -
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
+app.use(express.static(__dirname + '/public'))
 app.use(
   expressFileUpload({
     useTempFiles: true,

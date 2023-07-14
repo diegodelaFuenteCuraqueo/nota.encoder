@@ -4,6 +4,7 @@ const fs = require('fs')
 function convert(req,res) {
   console.log(" ~ accediendo a /convert")
   let to = req.body.to
+  let type = req.body.type || ''
   let file = req.files.file
   let fileName = `output.${to}`
   console.log('file', file)
@@ -24,10 +25,6 @@ function convert(req,res) {
           if (err) throw err;
           console.log("archivo borrado");
         })
-      })
-      fs.unlink("tmp/"+file.name, (err)=>{
-        if (err) throw err
-        console.log("archivo borrado")
       })
     })
     .on('error', (err)=>{
